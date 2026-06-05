@@ -1,0 +1,409 @@
+{
+  "_metadata": {
+    "version": "1.0.0",
+    "description": "KisanMind crop knowledge base. Covers major Indian crops with sowing windows, water needs, soil compatibility, and risk factors by region.",
+    "regions": ["north_india", "south_india", "west_india", "east_india", "central_india"],
+    "units": {
+      "water_need_mm": "total millimetres of water required across full growing cycle",
+      "irrigation_interval_days": "days between irrigation events under normal conditions",
+      "growing_days": "days from sowing to harvest",
+      "temperature_c": "degrees Celsius"
+    }
+  },
+
+  "crops": {
+
+    "wheat": {
+      "name": "Wheat",
+      "local_names": ["Gehun", "Godhuma"],
+      "category": "rabi",
+      "description": "Primary winter staple crop. Requires cool temperatures during germination and grain filling. Highly sensitive to late sowing — yield drops sharply after optimal window.",
+
+      "regions": {
+        "north_india": {
+          "sow_window_start": "11-01",
+          "sow_window_end": "11-25",
+          "harvest_window_start": "03-15",
+          "harvest_window_end": "04-15",
+          "growing_days": 120,
+          "notes": "Punjab, Haryana, UP belt. Ideal temp at sowing: 20–22°C. Late sowing (post Nov 25) reduces yield by 30–40 kg/hectare per day of delay."
+        },
+        "central_india": {
+          "sow_window_start": "11-10",
+          "sow_window_end": "12-05",
+          "harvest_window_start": "03-20",
+          "harvest_window_end": "04-20",
+          "growing_days": 115,
+          "notes": "MP, Rajasthan. Slightly later window due to slower temperature drop."
+        }
+      },
+
+      "water": {
+        "total_water_need_mm": 450,
+        "irrigation_interval_days": 21,
+        "critical_stages": [
+          {"stage": "crown_root_initiation", "days_after_sowing": 21, "note": "Missing irrigation at this stage causes 20–25% yield loss"},
+          {"stage": "jointing", "days_after_sowing": 45, "note": "High water demand phase begins"},
+          {"stage": "flowering", "days_after_sowing": 75, "note": "Water stress here causes grain shrivelling"},
+          {"stage": "grain_filling", "days_after_sowing": 90, "note": "Final critical stage — maintain adequate moisture"}
+        ],
+        "drought_tolerance": "low",
+        "waterlogging_tolerance": "very_low"
+      },
+
+      "soil": {
+        "preferred": ["loamy", "clay_loam", "black_cotton"],
+        "tolerated": ["sandy_loam"],
+        "avoid": ["sandy", "waterlogged"],
+        "optimal_ph_min": 6.0,
+        "optimal_ph_max": 7.5,
+        "notes": "Well-drained deep soils essential. Black cotton soil retains moisture well for wheat but needs drainage management."
+      },
+
+      "risk_factors": [
+        {"type": "temperature", "condition": "temp_above_35_during_grain_fill", "severity": "critical", "message": "Heat stress during grain filling causes yield loss of up to 50%"},
+        {"type": "weather", "condition": "rain_during_harvest", "severity": "high", "message": "Rain at harvest causes grain discolouration and quality loss"},
+        {"type": "timing", "condition": "sowing_after_nov_25_north", "severity": "high", "message": "Late sowing penalty: 30–40 kg/ha yield loss per day of delay"},
+        {"type": "pest", "condition": "yellow_rust_risk_high_humidity", "severity": "medium", "message": "Yellow rust risk increases when humidity exceeds 80% during vegetative stage"}
+      ],
+
+      "market": {
+        "msp_crop": true,
+        "peak_price_months": ["03", "04", "05"],
+        "off_peak_months": ["10", "11"],
+        "price_volatility": "low",
+        "notes": "MSP-backed crop. Price predictable. Sell at harvest or store for April–May premium."
+      }
+    },
+
+    "rice": {
+      "name": "Rice",
+      "local_names": ["Chawal", "Dhan", "Arisi"],
+      "category": "kharif",
+      "description": "Primary kharif staple. High water consumer. Benefits from monsoon timing. Multiple varieties — short duration (90 days) to long duration (150 days).",
+
+      "regions": {
+        "north_india": {
+          "sow_window_start": "06-15",
+          "sow_window_end": "07-15",
+          "harvest_window_start": "10-01",
+          "harvest_window_end": "11-15",
+          "growing_days": 120,
+          "notes": "Transplanting typically 25–30 days after nursery sowing. Punjab: delay transplanting past July 10 to reduce groundwater depletion."
+        },
+        "south_india": {
+          "sow_window_start": "06-01",
+          "sow_window_end": "07-01",
+          "harvest_window_start": "09-15",
+          "harvest_window_end": "10-30",
+          "growing_days": 110,
+          "notes": "Dependent on southwest monsoon onset. Second crop possible Oct–Feb."
+        },
+        "east_india": {
+          "sow_window_start": "06-01",
+          "sow_window_end": "06-30",
+          "harvest_window_start": "09-15",
+          "harvest_window_end": "10-31",
+          "growing_days": 115,
+          "notes": "WB, Odisha, Bihar. Flash flooding risk in low-lying areas — avoid if topography indicates flood susceptibility."
+        }
+      },
+
+      "water": {
+        "total_water_need_mm": 1200,
+        "irrigation_interval_days": 4,
+        "critical_stages": [
+          {"stage": "transplanting", "days_after_sowing": 25, "note": "Maintain 5cm standing water for 15 days post-transplant"},
+          {"stage": "tillering", "days_after_sowing": 45, "note": "Alternate wetting and drying saves 30% water with <5% yield loss"},
+          {"stage": "panicle_initiation", "days_after_sowing": 65, "note": "Critical — water stress here causes sterility"},
+          {"stage": "flowering", "days_after_sowing": 85, "note": "Maintain 2–5cm water during entire flowering period"}
+        ],
+        "drought_tolerance": "low",
+        "waterlogging_tolerance": "high"
+      },
+
+      "soil": {
+        "preferred": ["clay", "clay_loam", "black_cotton"],
+        "tolerated": ["loamy"],
+        "avoid": ["sandy", "red_laterite"],
+        "optimal_ph_min": 5.5,
+        "optimal_ph_max": 7.0,
+        "notes": "Heavy soils that retain water are ideal. Sandy soils cause excessive percolation losses."
+      },
+
+      "risk_factors": [
+        {"type": "water", "condition": "drought_during_flowering", "severity": "critical", "message": "Water stress at flowering causes panicle sterility — yield loss up to 70%"},
+        {"type": "weather", "condition": "cold_spell_below_15c_during_flowering", "severity": "high", "message": "Cold temperatures cause spikelet sterility in most varieties"},
+        {"type": "pest", "condition": "brown_planthopper_high_humidity", "severity": "high", "message": "BPH risk high when humidity exceeds 85% for 5+ consecutive days"},
+        {"type": "weather", "condition": "excess_rain_at_harvest", "severity": "medium", "message": "Pre-harvest rainfall causes grain sprouting and quality loss"}
+      ],
+
+      "market": {
+        "msp_crop": true,
+        "peak_price_months": ["01", "02", "03"],
+        "off_peak_months": ["10", "11"],
+        "price_volatility": "low",
+        "notes": "MSP-backed. Basmati commands significant premium — check variety before advising on market timing."
+      }
+    },
+
+    "cotton": {
+      "name": "Cotton",
+      "local_names": ["Kapas", "Paruthi"],
+      "category": "kharif",
+      "description": "High-value cash crop. Requires long frost-free season. Bt cotton dominates in India. Sensitive to waterlogging.",
+
+      "regions": {
+        "west_india": {
+          "sow_window_start": "05-15",
+          "sow_window_end": "06-30",
+          "harvest_window_start": "10-01",
+          "harvest_window_end": "01-31",
+          "growing_days": 180,
+          "notes": "Gujarat, Maharashtra. Pre-monsoon sowing (May 15–June 1) with irrigation gives best results."
+        },
+        "central_india": {
+          "sow_window_start": "06-01",
+          "sow_window_end": "07-01",
+          "harvest_window_start": "10-15",
+          "harvest_window_end": "02-28",
+          "growing_days": 180,
+          "notes": "MP, Vidarbha. Rain-fed possible if monsoon onset is on time. Waterlogging risk on black soils in heavy rain years."
+        },
+        "south_india": {
+          "sow_window_start": "05-01",
+          "sow_window_end": "06-15",
+          "harvest_window_start": "09-01",
+          "harvest_window_end": "12-31",
+          "growing_days": 170,
+          "notes": "AP, Telangana. Two pickings typical. First picking accounts for 60–70% of yield."
+        }
+      },
+
+      "water": {
+        "total_water_need_mm": 700,
+        "irrigation_interval_days": 14,
+        "critical_stages": [
+          {"stage": "germination", "days_after_sowing": 7, "note": "Ensure adequate moisture — dry spell after sowing causes poor stand"},
+          {"stage": "squaring", "days_after_sowing": 45, "note": "Bud formation — water stress causes bud shedding"},
+          {"stage": "boll_development", "days_after_sowing": 90, "note": "Highest water demand period — 14-day irrigation cycle"},
+          {"stage": "boll_opening", "days_after_sowing": 140, "note": "Reduce irrigation to promote uniform boll opening"}
+        ],
+        "drought_tolerance": "medium",
+        "waterlogging_tolerance": "very_low"
+      },
+
+      "soil": {
+        "preferred": ["black_cotton", "clay_loam"],
+        "tolerated": ["loamy", "red_laterite"],
+        "avoid": ["sandy", "waterlogged"],
+        "optimal_ph_min": 6.0,
+        "optimal_ph_max": 8.0,
+        "notes": "Black cotton (Vertisol) is ideal — deep, moisture retentive. Avoid fields with waterlogging history."
+      },
+
+      "risk_factors": [
+        {"type": "weather", "condition": "waterlogging_risk", "severity": "critical", "message": "Cotton cannot tolerate standing water — even 48 hours causes root damage"},
+        {"type": "pest", "condition": "pink_bollworm_risk", "severity": "high", "message": "Pink bollworm is the primary yield threat — scouting essential from squaring stage"},
+        {"type": "weather", "condition": "rain_during_boll_opening", "severity": "high", "message": "Rainfall during harvest period stains lint — market price penalty"},
+        {"type": "timing", "condition": "late_sowing_post_july", "severity": "medium", "message": "Late kharif sowing reduces boll count and harvest extends into cold season"}
+      ],
+
+      "market": {
+        "msp_crop": true,
+        "peak_price_months": ["01", "02", "03"],
+        "off_peak_months": ["10", "11"],
+        "price_volatility": "medium",
+        "notes": "Global cotton prices affect domestic. Check MCX futures before deciding on immediate vs stored sale."
+      }
+    },
+
+    "maize": {
+      "name": "Maize",
+      "local_names": ["Makka", "Bhutta", "Cholam"],
+      "category": "kharif",
+      "description": "Versatile crop grown as kharif staple and rabi irrigation crop. Shorter cycle than rice. Good drought tolerance relative to other cereals.",
+
+      "regions": {
+        "north_india": {
+          "sow_window_start": "06-15",
+          "sow_window_end": "07-15",
+          "harvest_window_start": "09-15",
+          "harvest_window_end": "10-31",
+          "growing_days": 95,
+          "notes": "HP, Uttarakhand hills: May–June sowing. Plains: June–July with monsoon. Rabi maize possible in South and East India."
+        },
+        "south_india": {
+          "sow_window_start": "06-01",
+          "sow_window_end": "07-15",
+          "harvest_window_start": "09-01",
+          "harvest_window_end": "10-15",
+          "growing_days": 90,
+          "notes": "Rabi crop also viable (Nov–Feb) under irrigation. Karnataka is a major producer."
+        }
+      },
+
+      "water": {
+        "total_water_need_mm": 500,
+        "irrigation_interval_days": 10,
+        "critical_stages": [
+          {"stage": "knee_high", "days_after_sowing": 30, "note": "Rapid growth phase — maintain soil moisture"},
+          {"stage": "tasseling", "days_after_sowing": 55, "note": "Most critical — water stress here causes poor pollination and blank cobs"},
+          {"stage": "silking", "days_after_sowing": 60, "note": "Coincides with tasseling — combined stress period is highest risk"},
+          {"stage": "grain_filling", "days_after_sowing": 70, "note": "Maintain moisture for kernel development"}
+        ],
+        "drought_tolerance": "medium",
+        "waterlogging_tolerance": "low"
+      },
+
+      "soil": {
+        "preferred": ["loamy", "sandy_loam", "clay_loam"],
+        "tolerated": ["red_laterite"],
+        "avoid": ["waterlogged", "highly_saline"],
+        "optimal_ph_min": 5.8,
+        "optimal_ph_max": 7.5,
+        "notes": "Well-drained loamy soils ideal. Does not tolerate standing water. Good option for medium-fertility soils."
+      },
+
+      "risk_factors": [
+        {"type": "weather", "condition": "drought_at_tasseling_silking", "severity": "critical", "message": "8–10 day drought at tasseling/silking causes blank cobs — most damaging stress period"},
+        {"type": "weather", "condition": "waterlogging_early_stage", "severity": "high", "message": "Waterlogging in first 30 days causes stunted growth and root rot"},
+        {"type": "pest", "condition": "fall_armyworm", "severity": "high", "message": "Fall armyworm (FAW) is now endemic in India — scout whorls from 2-leaf stage"}
+      ],
+
+      "market": {
+        "msp_crop": true,
+        "peak_price_months": ["02", "03", "04"],
+        "off_peak_months": ["09", "10"],
+        "price_volatility": "medium",
+        "notes": "Poultry and starch industry demand drives prices. Feed sector buys at harvest — prices typically rise post-harvest as supply tightens."
+      }
+    },
+
+    "tomato": {
+      "name": "Tomato",
+      "local_names": ["Tamatar"],
+      "category": "vegetable_annual",
+      "description": "High-value vegetable with 3 planting seasons possible. Extreme price volatility. Short cycle enables fast cash flow but requires intensive management.",
+
+      "regions": {
+        "north_india": {
+          "sow_window_start": "02-01",
+          "sow_window_end": "03-15",
+          "harvest_window_start": "05-01",
+          "harvest_window_end": "07-15",
+          "growing_days": 75,
+          "notes": "Spring-summer crop. Also viable as Sep–Oct sowing for Nov–Jan harvest (winter crop). Avoid peak monsoon transplanting."
+        },
+        "south_india": {
+          "sow_window_start": "07-01",
+          "sow_window_end": "08-31",
+          "harvest_window_start": "10-01",
+          "harvest_window_end": "12-31",
+          "growing_days": 75,
+          "notes": "Three seasons possible. Kharif (Jul–Aug), Rabi (Nov–Dec), Summer (Feb–Mar). Protected cultivation extends options."
+        }
+      },
+
+      "water": {
+        "total_water_need_mm": 400,
+        "irrigation_interval_days": 5,
+        "critical_stages": [
+          {"stage": "transplanting", "days_after_sowing": 25, "note": "Daily light irrigation for 7 days post-transplant for establishment"},
+          {"stage": "flowering", "days_after_sowing": 45, "note": "Irregular irrigation causes blossom drop and blossom end rot"},
+          {"stage": "fruit_set", "days_after_sowing": 55, "note": "Consistent moisture critical — erratic watering causes fruit cracking"},
+          {"stage": "fruit_development", "days_after_sowing": 60, "note": "Reduce water 1 week before harvest to improve shelf life"}
+        ],
+        "drought_tolerance": "low",
+        "waterlogging_tolerance": "very_low"
+      },
+
+      "soil": {
+        "preferred": ["loamy", "sandy_loam"],
+        "tolerated": ["red_laterite"],
+        "avoid": ["clay", "waterlogged", "highly_saline"],
+        "optimal_ph_min": 6.0,
+        "optimal_ph_max": 7.0,
+        "notes": "Well-drained light soils best. Heavy clay causes root diseases. Raised beds recommended in high-rainfall areas."
+      },
+
+      "risk_factors": [
+        {"type": "weather", "condition": "temp_above_38_during_flowering", "severity": "critical", "message": "Pollen sterility above 38°C causes complete flower drop — avoid summer sowing in hot regions"},
+        {"type": "weather", "condition": "high_humidity_above_80_percent", "severity": "high", "message": "Early blight and late blight risk increases sharply above 80% humidity"},
+        {"type": "market", "condition": "peak_supply_glut", "severity": "high", "message": "Tomato prices crash during peak harvest windows — stagger sowing dates if possible"},
+        {"type": "weather", "condition": "unseasonal_rain_during_harvest", "severity": "medium", "message": "Cracking and rotting of mature fruit during rainfall — harvest immediately if rain forecast"}
+      ],
+
+      "market": {
+        "msp_crop": false,
+        "peak_price_months": ["11", "12", "01"],
+        "off_peak_months": ["06", "07"],
+        "price_volatility": "very_high",
+        "notes": "Most volatile vegetable crop. Prices can swing 10x within a season. Target Nov–Jan window when supply from plains is lowest. Consider FPO aggregation for better price realization."
+      }
+    },
+
+    "soybean": {
+      "name": "Soybean",
+      "local_names": ["Soya", "Bhatmas"],
+      "category": "kharif",
+      "description": "Major oilseed and protein crop. Central India's primary kharif cash crop. Nitrogen-fixing legume — improves soil health. Sensitive to photoperiod.",
+
+      "regions": {
+        "central_india": {
+          "sow_window_start": "06-20",
+          "sow_window_end": "07-15",
+          "harvest_window_start": "09-25",
+          "harvest_window_end": "10-31",
+          "growing_days": 95,
+          "notes": "MP and Vidarbha are primary belts. Sow with first good monsoon rain (soil moisture > 50mm). Avoid sowing in dry soil — poor germination."
+        },
+        "west_india": {
+          "sow_window_start": "06-15",
+          "sow_window_end": "07-10",
+          "harvest_window_start": "09-20",
+          "harvest_window_end": "10-25",
+          "growing_days": 90,
+          "notes": "Rajasthan, Gujarat. Shorter season varieties preferred. Drought risk in low-rainfall years."
+        }
+      },
+
+      "water": {
+        "total_water_need_mm": 450,
+        "irrigation_interval_days": 12,
+        "critical_stages": [
+          {"stage": "germination", "days_after_sowing": 7, "note": "Soil moisture > 50% field capacity needed for uniform germination"},
+          {"stage": "flowering", "days_after_sowing": 40, "note": "Most sensitive stage — flower drop under moisture stress"},
+          {"stage": "pod_filling", "days_after_sowing": 65, "note": "Seed size determined here — adequate moisture increases oil content"},
+          {"stage": "maturity", "days_after_sowing": 85, "note": "Dry conditions preferred for clean harvest and reduced mould"}
+        ],
+        "drought_tolerance": "medium",
+        "waterlogging_tolerance": "low"
+      },
+
+      "soil": {
+        "preferred": ["black_cotton", "clay_loam", "loamy"],
+        "tolerated": ["red_laterite"],
+        "avoid": ["sandy", "highly_acidic"],
+        "optimal_ph_min": 6.0,
+        "optimal_ph_max": 7.5,
+        "notes": "Deep black soils of MP and Maharashtra are ideal. pH below 6.0 reduces nitrogen fixation efficiency. Rhizobium seed treatment recommended."
+      },
+
+      "risk_factors": [
+        {"type": "weather", "condition": "excess_rain_waterlogging", "severity": "high", "message": "Waterlogging for 48+ hours in early stage causes root rot and stand loss"},
+        {"type": "weather", "condition": "drought_at_pod_filling", "severity": "high", "message": "Moisture stress at pod filling reduces seed size and oil content by 15–20%"},
+        {"type": "pest", "condition": "girdle_beetle", "severity": "medium", "message": "Girdle beetle is endemic in central India — girdling causes stem breakage"},
+        {"type": "timing", "condition": "late_sowing_post_july_15", "severity": "medium", "message": "Soybean is photoperiod-sensitive — late sowing shortens vegetative period and reduces yield"}
+      ],
+
+      "market": {
+        "msp_crop": true,
+        "peak_price_months": ["01", "02", "03"],
+        "off_peak_months": ["10", "11"],
+        "price_volatility": "medium",
+        "notes": "Prices linked to global edible oil market (palm oil, soyoil). Post-harvest prices typically lower — consider farm storage for 60–90 days."
+      }
+    }
+  }
+}

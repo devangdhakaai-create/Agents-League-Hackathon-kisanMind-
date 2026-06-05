@@ -1,0 +1,405 @@
+{
+  "_metadata": {
+    "version": "1.0.0",
+    "description": "KisanMind mocked market price dataset. Reflects realistic Indian commodity market conditions as of June 2026. In production, replace this with live data from Agmarknet API, NCDEX feed, or state APMC portal scraper.",
+    "data_source": "Mocked — based on historical NCDEX and Agmarknet price patterns",
+    "currency": "INR",
+    "price_unit": "per quintal (100 kg) unless otherwise noted",
+    "last_updated": "2026-06-01",
+    "production_replacement": {
+      "live_api_option_1": "Agmarknet API — https://agmarknet.gov.in (free, Indian government)",
+      "live_api_option_2": "NCDEX commodity exchange feed (subscription required)",
+      "live_api_option_3": "State APMC mandi portals (format varies by state)",
+      "update_frequency_recommended": "daily for current_price, weekly for trend analysis"
+    },
+    "signal_definitions": {
+      "trend": "price direction over last 30 days: rising | stable | falling",
+      "momentum": "rate of trend change: accelerating | steady | decelerating",
+      "signal": "actionable trading signal: buy_now | sell_now | hold | watch",
+      "confidence": "model confidence in signal: 0.0 to 1.0",
+      "seasonal_position": "where we are in the typical annual price cycle: trough | early_recovery | mid_cycle | peak | post_peak"
+    }
+  },
+
+  "market_data": {
+
+    "wheat": {
+      "crop": "wheat",
+      "msp": 2275,
+      "msp_year": "2025-26",
+      "msp_note": "Minimum Support Price guaranteed by Government of India. Floor price — market price should not fall below this. If it does, PM-AASHA scheme activates procurement.",
+
+      "current_prices": {
+        "national_average": 2380,
+        "delhi_mandi": 2420,
+        "punjab_mandi": 2350,
+        "mp_mandi": 2290,
+        "up_mandi": 2310,
+        "unit": "INR per quintal",
+        "as_of": "2026-06-01"
+      },
+
+      "price_vs_msp": {
+        "premium_over_msp": 105,
+        "premium_percent": 4.6,
+        "interpretation": "Market is paying above MSP — farmers are not distress-selling. Moderate bullish signal."
+      },
+
+      "trend_analysis": {
+        "trend_30_day": "stable",
+        "trend_90_day": "rising",
+        "momentum": "decelerating",
+        "price_change_30_day_inr": 15,
+        "price_change_90_day_inr": 120,
+        "seasonal_position": "post_peak",
+        "notes": "Wheat prices peaked in April–May post-rabi harvest. Now entering typical June stabilisation phase. Prices expected to hold through July before minor correction as new season stocks are assessed."
+      },
+
+      "seasonal_forecast": {
+        "next_30_days": "stable to slight decline — seasonal correction beginning",
+        "next_90_days": "mild decline expected as kharif procurement begins",
+        "peak_window": "March to May 2027 — next rabi harvest season",
+        "trough_window": "August to October 2026 — post-harvest seasonal low",
+        "advice_horizon": "If farmer is holding wheat stocks, sell within next 30 days before seasonal correction deepens."
+      },
+
+      "market_signal": {
+        "signal": "sell_now",
+        "confidence": 0.72,
+        "rationale": "Post-peak seasonal position with decelerating momentum. Current premium over MSP provides acceptable margin. Prices unlikely to rise further before October.",
+        "risk_to_signal": "Any disruption to global wheat supply (Ukraine, Australia drought) could reverse signal — monitor news."
+      },
+
+      "input_cost_reference": {
+        "avg_cost_of_cultivation_per_quintal": 1180,
+        "current_gross_margin_per_quintal": 1200,
+        "margin_assessment": "healthy",
+        "notes": "Based on average Punjab/UP cultivation cost including seed, fertiliser, irrigation, and labour. Actual margin varies significantly by farm efficiency."
+      },
+
+      "storage_advisory": {
+        "recommended": false,
+        "rationale": "Post-peak seasonal position. Storage cost (~Rs 50/quintal/month) will erode current premium. Sell now unless expecting a supply shock.",
+        "storage_cost_per_quintal_per_month": 50,
+        "break_even_price_increase_to_justify_storage": 150
+      }
+    },
+
+    "rice": {
+      "crop": "rice",
+      "msp": 2300,
+      "msp_year": "2025-26",
+      "msp_note": "Common grade paddy MSP. Basmati is not MSP-covered — commands significant open market premium.",
+
+      "current_prices": {
+        "national_average_common": 2180,
+        "national_average_basmati": 4200,
+        "punjab_mandi_common": 2150,
+        "up_mandi_common": 2100,
+        "ap_mandi_common": 2200,
+        "unit": "INR per quintal",
+        "as_of": "2026-06-01"
+      },
+
+      "price_vs_msp": {
+        "premium_over_msp_common": -120,
+        "premium_percent_common": -5.2,
+        "interpretation": "Common paddy trading BELOW MSP. Government procurement at MSP is the farmer's best option for common varieties. Basmati market is strong — different dynamics."
+      },
+
+      "trend_analysis": {
+        "trend_30_day": "stable",
+        "trend_90_day": "falling",
+        "momentum": "steady",
+        "price_change_30_day_inr": -10,
+        "price_change_90_day_inr": -180,
+        "seasonal_position": "trough",
+        "notes": "Common rice in seasonal trough ahead of kharif sowing. Prices at seasonal floor — limited downside from here. Recovery expected post-kharif harvest (November onwards). Basmati prices remain elevated due to export demand from Middle East and Europe."
+      },
+
+      "seasonal_forecast": {
+        "next_30_days": "stable at trough — no catalyst for near-term movement",
+        "next_90_days": "mild recovery expected from September as off-take from FCI stocks begins",
+        "peak_window": "January to March 2027",
+        "trough_window": "May to July 2026 — currently in trough",
+        "advice_horizon": "Farmers holding old stocks should sell via MSP procurement. New kharif crop: target January 2027 for best price realisation."
+      },
+
+      "market_signal": {
+        "signal": "sell_now",
+        "confidence": 0.65,
+        "rationale": "Common paddy below MSP — use government procurement. For basmati holders: hold until October–November when export demand typically peaks.",
+        "risk_to_signal": "El Niño impact on kharif could reduce supply and lift prices earlier than forecast."
+      },
+
+      "input_cost_reference": {
+        "avg_cost_of_cultivation_per_quintal": 1320,
+        "current_gross_margin_per_quintal_common": 860,
+        "margin_assessment": "thin",
+        "notes": "Margins on common rice are thin this season. Basmati growers have comfortable margins at current prices. MSP procurement is the safety net."
+      },
+
+      "storage_advisory": {
+        "recommended": false,
+        "rationale": "Common paddy: sell via MSP procurement immediately — market price is below MSP. Basmati: hold for 90 days for export season premium.",
+        "storage_cost_per_quintal_per_month": 45,
+        "break_even_price_increase_to_justify_storage": 135
+      }
+    },
+
+    "cotton": {
+      "crop": "cotton",
+      "msp": 7121,
+      "msp_year": "2025-26",
+      "msp_note": "Medium staple cotton MSP. Long staple (ELS) commands significant premium. MCX futures are the primary price discovery mechanism.",
+
+      "current_prices": {
+        "national_average_medium_staple": 7450,
+        "gujarat_mandi": 7600,
+        "vidarbha_mandi": 7200,
+        "telangana_mandi": 7350,
+        "unit": "INR per quintal",
+        "as_of": "2026-06-01"
+      },
+
+      "price_vs_msp": {
+        "premium_over_msp": 329,
+        "premium_percent": 4.6,
+        "interpretation": "Moderate premium over MSP. Cotton market supported by global supply tightness following poor US crop estimates."
+      },
+
+      "trend_analysis": {
+        "trend_30_day": "rising",
+        "trend_90_day": "rising",
+        "momentum": "accelerating",
+        "price_change_30_day_inr": 280,
+        "price_change_90_day_inr": 650,
+        "seasonal_position": "early_recovery",
+        "notes": "Cotton in early recovery phase after 2024-25 price weakness. Global supply tightness and strong domestic textile demand are both supportive. Pre-sowing season — prices typically firm before kharif cotton arrives (October). Current trajectory is bullish."
+      },
+
+      "seasonal_forecast": {
+        "next_30_days": "continued rise — Rs 200–400/quintal upside likely before kharif sowing peak",
+        "next_90_days": "prices expected to hold at Rs 7800–8200 range through harvest",
+        "peak_window": "January to March 2027 — post-harvest as supply tightens",
+        "trough_window": "October to November 2026 — new crop arrival pressure",
+        "advice_horizon": "Strong sowing incentive at current price trajectory. If farmer has old stocks, hold for 30–60 days. New crop will benefit from current price momentum if it holds through harvest."
+      },
+
+      "market_signal": {
+        "signal": "buy_now",
+        "confidence": 0.78,
+        "rationale": "Accelerating uptrend in early recovery phase with global supply tailwind. Pre-sowing seasonal position is optimal for new crop sowing decision. Sowing now targets the January–March peak.",
+        "risk_to_signal": "Trade policy changes (import duty adjustments) or rapid improvement in US/Australia cotton crop could reverse trend."
+      },
+
+      "input_cost_reference": {
+        "avg_cost_of_cultivation_per_quintal": 4200,
+        "current_gross_margin_per_quintal": 3250,
+        "margin_assessment": "strong",
+        "notes": "Cotton margins are the strongest among kharif crops this season. Bt cotton seed and pesticide costs are the primary input variables. Pink bollworm management cost has risen — factor into net margin."
+      },
+
+      "storage_advisory": {
+        "recommended": true,
+        "rationale": "Rising trend with 30–60 day upside projection. Farmers holding old stocks benefit from holding through July. New crop: do not sell at harvest — target January–March 2027 window.",
+        "storage_cost_per_quintal_per_month": 60,
+        "break_even_price_increase_to_justify_storage": 180
+      }
+    },
+
+    "maize": {
+      "crop": "maize",
+      "msp": 2090,
+      "msp_year": "2025-26",
+      "msp_note": "MSP covers basic grade. Poultry industry and starch sector are largest buyers — their procurement cycle drives price.",
+
+      "current_prices": {
+        "national_average": 2250,
+        "karnataka_mandi": 2310,
+        "mp_mandi": 2180,
+        "bihar_mandi": 2200,
+        "rajasthan_mandi": 2290,
+        "unit": "INR per quintal",
+        "as_of": "2026-06-01"
+      },
+
+      "price_vs_msp": {
+        "premium_over_msp": 160,
+        "premium_percent": 7.7,
+        "interpretation": "Healthy premium over MSP. Strong poultry sector demand driving prices above government floor."
+      },
+
+      "trend_analysis": {
+        "trend_30_day": "rising",
+        "trend_90_day": "stable",
+        "momentum": "steady",
+        "price_change_30_day_inr": 95,
+        "price_change_90_day_inr": 40,
+        "seasonal_position": "mid_cycle",
+        "notes": "Maize in mid-cycle with steady demand from poultry and ethanol sectors. Pre-kharif inventory drawdown is supporting near-term prices. New crop arrival (September–October) will create seasonal pressure. Current 30-day rise reflects tight pre-season supply."
+      },
+
+      "seasonal_forecast": {
+        "next_30_days": "stable to mild rise — pre-season supply tightness persists",
+        "next_90_days": "correction expected September–October on new kharif arrival",
+        "peak_window": "February to April 2027 — between kharif and rabi supplies",
+        "trough_window": "September to November 2026 — kharif harvest pressure",
+        "advice_horizon": "Sowing decision supported by strong current prices and post-harvest (Feb 2027) upside. Do not sell at harvest — hold 90–120 days for inter-seasonal price recovery."
+      },
+
+      "market_signal": {
+        "signal": "hold",
+        "confidence": 0.68,
+        "rationale": "Mid-cycle with steady momentum. Current prices above MSP provide comfort. Hold new crop stocks post-harvest for February 2027 inter-seasonal peak.",
+        "risk_to_signal": "Poultry disease outbreak (avian flu) is the primary demand-side risk — would reduce feed maize demand sharply."
+      },
+
+      "input_cost_reference": {
+        "avg_cost_of_cultivation_per_quintal": 1150,
+        "current_gross_margin_per_quintal": 1100,
+        "margin_assessment": "healthy",
+        "notes": "Maize has among the lowest cost of cultivation in kharif crops. Hybrid seed cost is the primary variable. Good margin at current prices."
+      },
+
+      "storage_advisory": {
+        "recommended": true,
+        "rationale": "Post-harvest storage to target Feb–April inter-seasonal peak is well-supported. Storage cost of Rs 40/quintal/month is covered by the projected Rs 200–300 price recovery.",
+        "storage_cost_per_quintal_per_month": 40,
+        "break_even_price_increase_to_justify_storage": 120
+      }
+    },
+
+    "tomato": {
+      "crop": "tomato",
+      "msp": null,
+      "msp_note": "No MSP for tomato. Prices entirely market-determined. Most volatile of all tracked crops.",
+
+      "current_prices": {
+        "national_average": 1850,
+        "delhi_wholesale": 2100,
+        "mumbai_wholesale": 1950,
+        "bangalore_wholesale": 1700,
+        "chennai_wholesale": 1600,
+        "unit": "INR per quintal",
+        "as_of": "2026-06-01"
+      },
+
+      "price_vs_msp": {
+        "premium_over_msp": null,
+        "premium_percent": null,
+        "interpretation": "No MSP reference. Compare against cost of cultivation (Rs 800–1200/quintal depending on region and season)."
+      },
+
+      "trend_analysis": {
+        "trend_30_day": "rising",
+        "trend_90_day": "rising",
+        "momentum": "accelerating",
+        "price_change_30_day_inr": 650,
+        "price_change_90_day_inr": 1400,
+        "seasonal_position": "early_recovery",
+        "notes": "Tomato entering strong seasonal price window. Supply from major growing regions (Kolar, Nashik, Himachal) declining as kharif planting begins and summer crop exhausts. This is the typical June–August price recovery window. Prices can reach Rs 4000–8000/quintal in July–August before kharif supply arrives."
+      },
+
+      "seasonal_forecast": {
+        "next_30_days": "continued strong rise — Rs 500–1500/quintal upside likely",
+        "next_90_days": "peak in July–August, correction when kharif tomato arrives September",
+        "peak_window": "July to August 2026 — supply gap between summer and kharif crop",
+        "trough_window": "October to December 2026 — kharif oversupply typical",
+        "advice_horizon": "Extremely high reward window for farmers who transplanted in April–May — harvest arrives June–July at peak prices. For new planting decisions: June transplanting targets August harvest at peak — HIGH REWARD but HIGH RISK if oversupply develops."
+      },
+
+      "market_signal": {
+        "signal": "buy_now",
+        "confidence": 0.61,
+        "rationale": "Accelerating uptrend in seasonal supply gap window. Margin potential is exceptional at Rs 500–1500/quintal above cost. Confidence is lower than other crops due to extreme volatility — price can reverse in 2 weeks.",
+        "risk_to_signal": "Heavy monsoon rainfall causing crop damage across growing regions could paradoxically push prices even higher. Conversely, a bumper kharif supply arriving early would crash prices."
+      },
+
+      "input_cost_reference": {
+        "avg_cost_of_cultivation_per_quintal": 950,
+        "current_gross_margin_per_quintal": 900,
+        "margin_assessment": "strong_and_rising",
+        "notes": "Tomato offers highest margin potential of all crops in the dataset in the current window. Requires intensive management, irrigation, and pest control. High risk of price collapse if timing is off by 3–4 weeks."
+      },
+
+      "storage_advisory": {
+        "recommended": false,
+        "rationale": "Tomato is perishable — storage is not applicable beyond cold chain (3–5 days). Sell at harvest immediately. Processing contracts (paste, puree) are the only storage-equivalent option.",
+        "storage_cost_per_quintal_per_month": null,
+        "break_even_price_increase_to_justify_storage": null
+      }
+    },
+
+    "soybean": {
+      "crop": "soybean",
+      "msp": 4892,
+      "msp_year": "2025-26",
+      "msp_note": "Yellow soybean MSP. Prices closely linked to global edible oil market — palm oil and soyoil futures in Chicago and Bursa Malaysia.",
+
+      "current_prices": {
+        "national_average": 4650,
+        "mp_mandi": 4580,
+        "maharashtra_mandi": 4720,
+        "rajasthan_mandi": 4600,
+        "unit": "INR per quintal",
+        "as_of": "2026-06-01"
+      },
+
+      "price_vs_msp": {
+        "premium_over_msp": -242,
+        "premium_percent": -4.9,
+        "interpretation": "Soybean trading BELOW MSP. Government procurement pressure exists. Farmers holding old stocks should sell via NAFED procurement at MSP where available."
+      },
+
+      "trend_analysis": {
+        "trend_30_day": "stable",
+        "trend_90_day": "falling",
+        "momentum": "decelerating",
+        "price_change_30_day_inr": -30,
+        "price_change_90_day_inr": -310,
+        "seasonal_position": "trough",
+        "notes": "Soybean in seasonal trough ahead of new kharif crop. Global edible oil prices under pressure from large South American soybean crop. Domestic crushing margins are thin, reducing processor buying interest. Limited near-term upside catalyst."
+      },
+
+      "seasonal_forecast": {
+        "next_30_days": "stable at trough — downside limited by MSP floor",
+        "next_90_days": "mild recovery possible if global soyoil prices recover",
+        "peak_window": "January to March 2027 — if global oilseed supply tightens",
+        "trough_window": "May to July 2026 — currently in trough",
+        "advice_horizon": "Sell old stocks via MSP procurement immediately. For new kharif crop: sowing decision should be based on agronomic factors — market timing is unfavourable but MSP floor provides downside protection."
+      },
+
+      "market_signal": {
+        "signal": "sell_now",
+        "confidence": 0.70,
+        "rationale": "Below-MSP prices with falling 90-day trend. Use government procurement for old stocks. New crop: MSP floor limits maximum loss but upside is unclear. Diversification to cotton (stronger signal) worth considering if agronomic conditions support it.",
+        "risk_to_signal": "Argentine drought or US soybean crop failure could rapidly reverse global soyoil prices and lift Indian soybean prices significantly."
+      },
+
+      "input_cost_reference": {
+        "avg_cost_of_cultivation_per_quintal": 3100,
+        "current_gross_margin_per_quintal": 1550,
+        "margin_assessment": "thin",
+        "notes": "Margins are thin at current prices. MSP procurement is the practical price floor. Yield improvement via certified seed and good agronomy is the best margin lever available to the farmer."
+      },
+
+      "storage_advisory": {
+        "recommended": false,
+        "rationale": "Below-MSP prices with uncertain recovery timeline. Storage cost of Rs 55/quintal/month at thin margins is not justified. Sell via MSP procurement.",
+        "storage_cost_per_quintal_per_month": 55,
+        "break_even_price_increase_to_justify_storage": 165
+      }
+    }
+  },
+
+  "market_summary_index": {
+    "_note": "Quick reference for the reasoning engine. Returns signal and current price without loading full profile.",
+    "wheat":   { "signal": "sell_now", "current_price": 2380, "vs_msp": "above", "trend": "stable",  "confidence": 0.72 },
+    "rice":    { "signal": "sell_now", "current_price": 2180, "vs_msp": "below", "trend": "stable",  "confidence": 0.65 },
+    "cotton":  { "signal": "buy_now",  "current_price": 7450, "vs_msp": "above", "trend": "rising",  "confidence": 0.78 },
+    "maize":   { "signal": "hold",     "current_price": 2250, "vs_msp": "above", "trend": "rising",  "confidence": 0.68 },
+    "tomato":  { "signal": "buy_now",  "current_price": 1850, "vs_msp": null,    "trend": "rising",  "confidence": 0.61 },
+    "soybean": { "signal": "sell_now", "current_price": 4650, "vs_msp": "below", "trend": "falling", "confidence": 0.70 }
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "_metadata": {
+    "version": "1.0.0",
+    "description": "KisanMind soil knowledge base. Profiles for 6 major Indian soil classifications used in irrigation planning and crop compatibility assessment.",
+    "soil_types": [
+      "black_cotton",
+      "loamy",
+      "sandy",
+      "clay",
+      "red_laterite",
+      "sandy_loam"
+    ],
+    "units": {
+      "field_capacity_percent": "volumetric water content at field capacity as percentage",
+      "wilting_point_percent": "volumetric water content at permanent wilting point as percentage",
+      "infiltration_rate_mm_per_hour": "how fast water moves into soil surface",
+      "irrigation_multiplier": "multiply base crop irrigation interval by this factor to get soil-adjusted interval. <1 means irrigate more frequently, >1 means irrigate less frequently"
+    },
+    "coverage": "Covers >85% of cultivated area in India. Saline, alkaline, and hill soils excluded — out of scope for v1."
+  },
+
+  "soil_profiles": {
+
+    "black_cotton": {
+      "name": "Black Cotton Soil",
+      "local_names": ["Regur", "Vertisol", "Kali mitti"],
+      "also_known_as": "Regur soil or Vertisol in scientific classification",
+      "distribution": "Deccan plateau — Maharashtra, MP, Gujarat, AP, Telangana, Karnataka",
+      "area_coverage_million_ha": 72,
+
+      "physical_properties": {
+        "texture": "heavy clay",
+        "clay_content_percent": 62,
+        "colour": "black to dark grey — colour from montmorillonite clay minerals",
+        "depth_cm": 90,
+        "field_capacity_percent": 45,
+        "wilting_point_percent": 22,
+        "available_water_capacity_percent": 23,
+        "infiltration_rate_mm_per_hour": 3,
+        "drainage": "poor",
+        "notes": "Swells when wet, cracks when dry. Cracks can be 10–15cm wide in summer. Self-mulching property — cracks close after rain, trapping surface soil."
+      },
+
+      "agronomic_properties": {
+        "ph_range_min": 7.2,
+        "ph_range_max": 8.5,
+        "fertility": "high",
+        "nitrogen": "medium",
+        "phosphorus": "medium",
+        "potassium": "high",
+        "organic_matter": "medium",
+        "notes": "Naturally fertile. High water and nutrient retention. Main limitation is drainage — waterlogging risk is high in heavy rainfall events."
+      },
+
+      "irrigation_guidance": {
+        "irrigation_multiplier": 1.4,
+        "reasoning": "High water retention means soil stays moist longer after rain or irrigation. Multiply base crop interval by 1.4 — irrigate 40% less frequently than the crop base recommendation.",
+        "waterlogging_risk": "high",
+        "waterlogging_note": "Standing water for 48+ hours causes root anoxia in most crops. Ensure field drainage channels are maintained before kharif sowing.",
+        "summer_crack_note": "Deep cracks in summer can damage shallow root systems. First irrigation of the season should be light to gradually close cracks before heavy irrigation.",
+        "preferred_irrigation_method": "drip or furrow",
+        "avoid_irrigation_method": "flood irrigation in kharif — increases waterlogging risk"
+      },
+
+      "water_stress_signals": [
+        "Soil surface lightens in colour and begins to harden — irrigate within 2 days",
+        "Hairline cracks appearing at surface — irrigate immediately",
+        "Crop leaves showing inward rolling in early morning — severe stress"
+      ],
+
+      "suitable_crops": ["cotton", "soybean", "wheat", "sorghum", "chickpea", "linseed"],
+      "unsuitable_crops": ["rice_in_poorly_drained_areas", "groundnut", "potato"],
+      "best_crop_fit": "cotton",
+      "notes_for_reasoning_engine": "When soil is black_cotton and crop is cotton or soybean: irrigation_multiplier = 1.4, waterlogging_risk = HIGH. Always include drainage check in risk_flags. When crop is wheat on black cotton: good fit, but ensure drainage management advice is included."
+    },
+
+    "loamy": {
+      "name": "Loamy Soil",
+      "local_names": ["Domat mitti", "Bhuri mitti"],
+      "also_known_as": "Alluvial loam in Indo-Gangetic plains",
+      "distribution": "Indo-Gangetic plains — UP, Bihar, Punjab, Haryana, parts of West Bengal",
+      "area_coverage_million_ha": 45,
+
+      "physical_properties": {
+        "texture": "balanced mix of sand, silt, clay",
+        "clay_content_percent": 25,
+        "colour": "brown to dark brown",
+        "depth_cm": 120,
+        "field_capacity_percent": 35,
+        "wilting_point_percent": 15,
+        "available_water_capacity_percent": 20,
+        "infiltration_rate_mm_per_hour": 12,
+        "drainage": "good",
+        "notes": "The ideal agricultural soil. Balances water retention and drainage. Easy to till. Supports a wide range of crops. High depth allows deep root development."
+      },
+
+      "agronomic_properties": {
+        "ph_range_min": 6.5,
+        "ph_range_max": 7.5,
+        "fertility": "high",
+        "nitrogen": "high",
+        "phosphorus": "medium-high",
+        "potassium": "medium",
+        "organic_matter": "high",
+        "notes": "Most productive soil type. Responsive to fertiliser. pH near neutral suits most crops. Regular organic matter addition maintains structure."
+      },
+
+      "irrigation_guidance": {
+        "irrigation_multiplier": 1.0,
+        "reasoning": "Loamy soil is the reference soil type. Base crop irrigation intervals apply directly. No adjustment needed.",
+        "waterlogging_risk": "low",
+        "waterlogging_note": "Good drainage makes waterlogging unlikely except in unusually heavy rainfall events or flat, poorly-graded fields.",
+        "preferred_irrigation_method": "drip, sprinkler, or furrow",
+        "avoid_irrigation_method": "no specific avoidance — all methods work on loamy soil"
+      },
+
+      "water_stress_signals": [
+        "Topsoil loses moisture feel — finger test at 5cm depth feels dry",
+        "Soil surface cracks finely — irrigate within 1 day",
+        "Crop shows wilting in afternoon heat but recovers overnight — moderate stress, irrigate next morning"
+      ],
+
+      "suitable_crops": ["wheat", "rice", "maize", "sugarcane", "potato", "tomato", "mustard", "sunflower"],
+      "unsuitable_crops": [],
+      "best_crop_fit": "wheat",
+      "notes_for_reasoning_engine": "Loamy soil fits all crops in the knowledge base. Use base irrigation intervals without multiplier adjustment. Low risk profile — avoid unnecessary risk_flags unless weather signals warrant."
+    },
+
+    "sandy": {
+      "name": "Sandy Soil",
+      "local_names": ["Baluyi mitti", "Ret mitti"],
+      "also_known_as": "Arid zone soil, desert soil",
+      "distribution": "Rajasthan desert, parts of Gujarat, coastal belts across India",
+      "area_coverage_million_ha": 28,
+
+      "physical_properties": {
+        "texture": "coarse — large particle size, minimal clay",
+        "clay_content_percent": 8,
+        "colour": "pale yellow to light brown",
+        "depth_cm": 60,
+        "field_capacity_percent": 12,
+        "wilting_point_percent": 5,
+        "available_water_capacity_percent": 7,
+        "infiltration_rate_mm_per_hour": 50,
+        "drainage": "excessive",
+        "notes": "Water drains through rapidly — poor water retention is the primary limitation. Nutrients leach easily with irrigation. Warms quickly in spring, benefiting early-season crops. Light and easy to till."
+      },
+
+      "agronomic_properties": {
+        "ph_range_min": 5.5,
+        "ph_range_max": 7.0,
+        "fertility": "low",
+        "nitrogen": "low",
+        "phosphorus": "low",
+        "potassium": "medium",
+        "organic_matter": "very_low",
+        "notes": "Low natural fertility. Requires frequent, split fertiliser applications — bulk application leaches away before crops can absorb. Organic matter additions improve structure markedly. Drip irrigation is essential for water-use efficiency."
+      },
+
+      "irrigation_guidance": {
+        "irrigation_multiplier": 0.55,
+        "reasoning": "Very low water retention means soil dries out rapidly after irrigation. Multiply base crop interval by 0.55 — irrigate nearly twice as frequently as the base recommendation. Each irrigation event should be shorter and lighter to avoid runoff.",
+        "waterlogging_risk": "very_low",
+        "waterlogging_note": "Waterlogging is virtually impossible in sandy soils. Excess water simply drains away.",
+        "preferred_irrigation_method": "drip irrigation strongly recommended — maximises water-use efficiency and reduces leaching",
+        "avoid_irrigation_method": "flood irrigation — significant water loss to deep percolation"
+      },
+
+      "water_stress_signals": [
+        "Soil feels completely dry at 3cm depth — irrigate immediately, stress onset is rapid in sandy soils",
+        "Crop wilting visible by 9am — severe stress, sandy soil provides little buffer",
+        "Light colour at surface with dusty texture — irrigate within hours if crop is in critical stage"
+      ],
+
+      "suitable_crops": ["groundnut", "watermelon", "pearl_millet", "carrot", "sweet_potato", "cowpea"],
+      "unsuitable_crops": ["rice", "wheat_without_irrigation", "sugarcane"],
+      "best_crop_fit": "groundnut",
+      "notes_for_reasoning_engine": "Sandy soil requires the most aggressive irrigation adjustment. irrigation_multiplier = 0.55. Always recommend drip irrigation. Include nutrient leaching risk in risk_flags. Waterlogging risk is negligible — omit waterlogging warnings. If crop is wheat or rice on sandy soil, flag as suboptimal crop-soil fit."
+    },
+
+    "clay": {
+      "name": "Clay Soil",
+      "local_names": ["Chikni mitti", "Kadamatti"],
+      "also_known_as": "Heavy soil, alluvial clay",
+      "distribution": "River delta regions — Bengal, Odisha, parts of Bihar, coastal Kerala and Tamil Nadu",
+      "area_coverage_million_ha": 35,
+
+      "physical_properties": {
+        "texture": "very fine particles — sticky when wet, hard when dry",
+        "clay_content_percent": 55,
+        "colour": "grey to dark grey",
+        "depth_cm": 80,
+        "field_capacity_percent": 42,
+        "wilting_point_percent": 20,
+        "available_water_capacity_percent": 22,
+        "infiltration_rate_mm_per_hour": 2,
+        "drainage": "poor to very poor",
+        "notes": "Similar to black cotton but without the montmorillonite swelling property. High compaction risk when tilled wet. Slow to warm in spring. Very slow drainage creates waterlogging risk. Strong structure when dry — difficult to till."
+      },
+
+      "agronomic_properties": {
+        "ph_range_min": 6.0,
+        "ph_range_max": 7.5,
+        "fertility": "medium-high",
+        "nitrogen": "medium",
+        "phosphorus": "medium",
+        "potassium": "high",
+        "organic_matter": "medium",
+        "notes": "Good nutrient retention but drainage limitation reduces effective fertility. Phosphorus fixation can be an issue. Gypsum application improves structure. Avoid tillage when wet — causes compaction and structural damage."
+      },
+
+      "irrigation_guidance": {
+        "irrigation_multiplier": 1.35,
+        "reasoning": "High water retention capacity means soil holds moisture well between irrigations. Multiply base crop interval by 1.35 — irrigate 35% less frequently than the base recommendation. Monitor drainage closely in monsoon.",
+        "waterlogging_risk": "very_high",
+        "waterlogging_note": "Highest waterlogging risk of all soil types. In heavy rainfall events, surface drainage channels must function. Pre-monsoon drainage channel maintenance is critical.",
+        "preferred_irrigation_method": "drip or sprinkler — avoids surface puddling",
+        "avoid_irrigation_method": "flood irrigation — causes severe puddling and structural damage to surface layer"
+      },
+
+      "water_stress_signals": [
+        "Soil surface becomes hard and develops a grey-white tinge — irrigate within 2 days",
+        "Fine surface cracking develops — moderate stress, schedule irrigation",
+        "Deep wide cracks similar to black cotton — severe stress, irrigate immediately with light application"
+      ],
+
+      "suitable_crops": ["rice", "jute", "taro", "lotus", "banana"],
+      "unsuitable_crops": ["wheat_without_drainage", "cotton", "groundnut", "most_vegetable_crops"],
+      "best_crop_fit": "rice",
+      "notes_for_reasoning_engine": "Clay soil has the highest waterlogging risk. irrigation_multiplier = 1.35. Always include drainage maintenance in action items. Best suited for rice. If non-rice crop is selected on clay soil, flag as drainage-management-required. Avoid recommending cotton or groundnut on clay."
+    },
+
+    "red_laterite": {
+      "name": "Red Laterite Soil",
+      "local_names": ["Lal mitti", "Tambadi mitti", "Kempu Manu"],
+      "also_known_as": "Laterite soil, Ultisol",
+      "distribution": "Eastern India hills, Western Ghats, Kerala, Karnataka, Odisha, Jharkhand, Chhattisgarh",
+      "area_coverage_million_ha": 25,
+
+      "physical_properties": {
+        "texture": "coarse to medium, porous",
+        "clay_content_percent": 20,
+        "colour": "red to yellow-red — colour from iron and aluminium oxides",
+        "depth_cm": 50,
+        "field_capacity_percent": 22,
+        "wilting_point_percent": 10,
+        "available_water_capacity_percent": 12,
+        "infiltration_rate_mm_per_hour": 20,
+        "drainage": "good to excessive",
+        "notes": "Porous structure drains well — sometimes too well. Thin topsoil means limited nutrient and water storage. Susceptible to erosion on slopes. Hardens into brick-like laterite if topsoil is removed."
+      },
+
+      "agronomic_properties": {
+        "ph_range_min": 5.0,
+        "ph_range_max": 6.5,
+        "fertility": "low",
+        "nitrogen": "low",
+        "phosphorus": "very_low",
+        "potassium": "low",
+        "organic_matter": "low",
+        "notes": "Acidic pH causes phosphorus fixation — poor P availability despite application. Lime application required to raise pH above 5.5 for most crops. High iron and aluminium can be toxic at very low pH. Green manure and compost are critical inputs."
+      },
+
+      "irrigation_guidance": {
+        "irrigation_multiplier": 0.7,
+        "reasoning": "Low water retention means soil dries faster than loamy reference. Multiply base crop interval by 0.7 — irrigate 30% more frequently. Frequent light irrigations more effective than heavy infrequent ones.",
+        "waterlogging_risk": "low",
+        "waterlogging_note": "Good drainage means waterlogging unlikely except in very intense rainfall events on flat terrain.",
+        "preferred_irrigation_method": "drip irrigation — reduces surface evaporation and improves water-use efficiency on shallow soils",
+        "avoid_irrigation_method": "sprinkler on slopes — causes runoff and erosion"
+      },
+
+      "water_stress_signals": [
+        "Red surface turns lighter, dry dusty appearance — irrigate within 1 day",
+        "Topsoil pulls away from plant base — root zone dry, irrigate immediately",
+        "Crop shows stress in morning hours — acute stress on shallow red soils, respond same day"
+      ],
+
+      "suitable_crops": ["cashew", "coffee", "tea", "rubber", "pineapple", "tapioca", "ragi", "groundnut"],
+      "unsuitable_crops": ["wheat", "rice_without_significant_inputs", "soybean"],
+      "best_crop_fit": "cashew",
+      "notes_for_reasoning_engine": "Red laterite is low-fertility, acidic, and fast-draining. irrigation_multiplier = 0.7. Always include soil amendment (lime, compost) in action items. Flag pH risk if crop requires pH > 6.5. Waterlogging risk is low — omit waterlogging warnings. If wheat is selected on red laterite, flag as poor crop-soil fit."
+    },
+
+    "sandy_loam": {
+      "name": "Sandy Loam Soil",
+      "local_names": ["Balu domat", "Halki domat mitti"],
+      "also_known_as": "Light alluvial soil",
+      "distribution": "Parts of Rajasthan, Gujarat, UP western belt, coastal Andhra Pradesh, Tamil Nadu",
+      "area_coverage_million_ha": 38,
+
+      "physical_properties": {
+        "texture": "mostly sand with enough clay and silt to improve cohesion",
+        "clay_content_percent": 15,
+        "colour": "light brown to tan",
+        "depth_cm": 75,
+        "field_capacity_percent": 22,
+        "wilting_point_percent": 9,
+        "available_water_capacity_percent": 13,
+        "infiltration_rate_mm_per_hour": 25,
+        "drainage": "good",
+        "notes": "Better than pure sandy soil — more cohesion, better root anchorage, moderately improved water retention. Easy to till at almost any moisture level. Warms quickly in spring."
+      },
+
+      "agronomic_properties": {
+        "ph_range_min": 6.0,
+        "ph_range_max": 7.5,
+        "fertility": "medium",
+        "nitrogen": "medium-low",
+        "phosphorus": "medium",
+        "potassium": "medium",
+        "organic_matter": "low-medium",
+        "notes": "Responsive to fertiliser. Organic matter additions significantly improve structure and water retention. Regular small doses of fertiliser more effective than single large applications."
+      },
+
+      "irrigation_guidance": {
+        "irrigation_multiplier": 0.75,
+        "reasoning": "Below-average water retention relative to loamy soil. Multiply base crop interval by 0.75 — irrigate ~25% more frequently than base recommendation. More frequent shorter irrigations preferred over less frequent heavy irrigations.",
+        "waterlogging_risk": "very_low",
+        "waterlogging_note": "Good drainage and moderate infiltration make waterlogging rare. Only a risk in prolonged heavy rainfall with no surface drainage.",
+        "preferred_irrigation_method": "drip or sprinkler — prevents surface crusting",
+        "avoid_irrigation_method": "heavy flood irrigation — surface sealing reduces future infiltration"
+      },
+
+      "water_stress_signals": [
+        "Soil feels dry at 5cm depth on finger test — irrigate within 1 day",
+        "Surface has light dusty appearance — moderate stress developing",
+        "Crop leaves slightly rolled or dull — schedule immediate irrigation"
+      ],
+
+      "suitable_crops": ["groundnut", "cotton", "maize", "wheat", "tomato", "chilli", "onion", "sunflower"],
+      "unsuitable_crops": ["rice_without_water_control_structures", "jute"],
+      "best_crop_fit": "groundnut",
+      "notes_for_reasoning_engine": "Sandy loam is versatile with moderate irrigation adjustment. irrigation_multiplier = 0.75. Waterlogging risk negligible. Good fit for most kharif and rabi crops in the knowledge base. Include organic matter enrichment in long-term action items. No crop-soil incompatibility warnings needed for wheat, cotton, maize, or tomato."
+    }
+  },
+
+  "irrigation_multiplier_summary": {
+    "_note": "Quick reference for the reasoning engine. Multiply the crop's base irrigation_interval_days by this factor to get the soil-adjusted interval.",
+    "black_cotton": 1.4,
+    "loamy": 1.0,
+    "sandy": 0.55,
+    "clay": 1.35,
+    "red_laterite": 0.7,
+    "sandy_loam": 0.75
+  },
+
+  "waterlogging_risk_summary": {
+    "_note": "Quick reference for risk flag generation.",
+    "black_cotton": "high",
+    "loamy": "low",
+    "sandy": "very_low",
+    "clay": "very_high",
+    "red_laterite": "low",
+    "sandy_loam": "very_low"
+  }
+}
