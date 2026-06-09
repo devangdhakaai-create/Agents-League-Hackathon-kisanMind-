@@ -1,13 +1,13 @@
-from sqlalchemy import create_engine, event, text
+from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from contextlib import contextmanager
 from typing import Generator
 import logging
 
-from app.config import Settings
+from app.config import settings
 
-looger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  # fixed: was 'looger'
 
 engine = create_engine(
     settings.DATABASE_URL,
@@ -16,13 +16,16 @@ engine = create_engine(
     pool_pre_ping=True,
     echo=(settings.ENVIRONMENT == "development"),
 )
+
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=engine,
 )
+
 Base = declarative_base()
-def get_db() -> Generator[session, None, None]:
+
+def get_db() -> Generator[Session, None, None]:  # fixed: was 'session'
     db = SessionLocal()
     try:
         yield db
@@ -31,6 +34,7 @@ def get_db() -> Generator[session, None, None]:
         raise
     finally:
         db.close()
+
 @contextmanager
 def get_db_context() -> Generator[Session, None, None]:
     db = SessionLocal()
@@ -41,15 +45,18 @@ def get_db_context() -> Generator[Session, None, None]:
         raise
     finally:
         db.close()
+
 def create_tables() -> None:
-    logger.info("Creating database tables if they don't exist....")
+    logger.info("Creating database tables if they don't exist...")
     Base.metadata.create_all(bind=engine)
     logger.info("Database tables ready.")
+
 def verify_connection() -> bool:
     try:
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
-        logger.info(f"Database connection verified:{settings.DATABASE_URL.split('@')[-1]}")
+        logger.info(f"Database connection verified: {settings.DATABASE_URL.split('@')[-1]}")
+        return True
     except Exception as e:
         logger.error(f"Database connection failed: {e}")
-        raise  
+        raise

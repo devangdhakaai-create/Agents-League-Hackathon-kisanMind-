@@ -5,7 +5,6 @@
 # Orchestrates: LLM call → tool dispatch → observation → repeat → final answer
 # This file is what makes KisanMind a reasoning agent, not a chatbot.
 # =============================================================================
-
 import json
 import logging
 import time
@@ -27,6 +26,7 @@ from app.agent.tools import (
 from app.agent.parser import parse_final_answer, extract_tool_summaries
 from app.db.database import get_db_context
 from app.db import crud
+from app.agent.prompts import SYSTEM_PROMPT
 
 logger = logging.getLogger(__name__)
 
@@ -70,10 +70,10 @@ class ReasoningEngine:
 
         # Conversation history sent to the LLM on every turn.
         # Starts with system prompt, grows with each tool call + observation.
+        
         self.messages: list[dict] = [
-            {"role": "system", "content": settings.SYSTEM_PROMPT
-             if hasattr(settings, "SYSTEM_PROMPT") else _get_system_prompt()}
-        ]
+    {"role": "system", "content": SYSTEM_PROMPT}
+]
 
         # Accumulated reasoning steps — persisted to DB and returned to API
         self.reasoning_steps: list[dict] = []
@@ -94,6 +94,11 @@ class ReasoningEngine:
         farm_size_acres: float,
         free_text: Optional[str] = None,
     ) -> dict:
+        logger.info(f"System prompt length: {len(self.messages[0]['content'])} chars")
+        logger.info(f"GitHub token present: {bool(settings.GITHUB_TOKEN)}")
+        logger.info(f"LLM model: {settings.LLM_MODEL}")
+        logger.info(f"LLM base URL: {settings.GITHUB_MODELS_BASE_URL}")
+
         """
         Runs the full ReAct loop for one farmer advisory request.
 
