@@ -112,3 +112,99 @@ kisanmind/
 ├── Dockerfile
 ├── docker-compose.yml
 └── requirements.txt
+---
+
+## 🚀 Run Locally
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/devangdhakaai-create/Agents-League-Hackathon-kisanMind-
+cd kisanMind
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Create .env
+GITHUB_TOKEN=your_github_pat_with_models_permission
+DATABASE_URL=postgresql://kisanmind:password@localhost:5432/kisanmind
+ENVIRONMENT=development
+
+# 4. Start PostgreSQL and run
+uvicorn app.main:app --reload --port 8000
+
+# 5. Open frontend
+# Open index.html in browser
+```
+
+---
+
+## 🌐 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/v1/advisory` | Run reasoning engine, return full advisory |
+| `GET` | `/api/v1/advisory/{id}` | Fetch advisory + reasoning trace |
+| `GET` | `/api/v1/sessions` | List recent sessions |
+| `GET` | `/api/v1/crops` | Supported crops |
+| `GET` | `/api/v1/regions` | Supported regions |
+| `GET` | `/api/v1/soils` | Supported soil types |
+| `GET` | `/api/v1/health` | Liveness probe |
+
+---
+
+## 🌾 Supported Crops & Regions
+
+**Crops:** Wheat · Rice · Cotton · Maize · Tomato · Soybean
+
+**Regions:** North India · South India · West India · East India · Central India
+
+**Soil Types:** Black Cotton · Loamy · Sandy · Clay · Red Laterite · Sandy Loam
+
+---
+
+## 📊 Example Advisory Output
+
+```json
+{
+  "recommendation": "Do not sow wheat now — current season is off-window. Use this period for soil preparation and input procurement for November sowing.",
+  "confidence": 0.87,
+  "sowing_advice": "Wheat sowing window for West India opens November 10. Current status: off_season — 154 days until window opens.",
+  "irrigation_advice": "On black cotton soil, irrigate wheat every 29 days (base 21 days × 1.4 multiplier). High waterlogging risk — ensure drainage channels are clear.",
+  "market_advice": "Wheat trading at ₹2380/quintal — ₹105 above MSP (4.6% premium). Current signal: SELL NOW. Post-peak seasonal position.",
+  "risk_flags": [
+    {"severity": "high", "type": "soil", "message": "Black cotton soil has HIGH waterlogging risk. Drainage channel maintenance required before kharif sowing."}
+  ],
+  "reasoning_trace": [
+    {"step": 1, "tool": "get_weather", "thought": "Fetched 7-day weather for (18.52, 73.86): avg temp 31°C, total rainfall 8mm."},
+    {"step": 2, "tool": "get_crop_data", "thought": "Retrieved wheat data for west_india: sowing window status = off_season."},
+    {"step": 3, "tool": "get_soil_profile", "thought": "Retrieved black cotton profile: multiplier=1.4, adjusted interval=29 days."},
+    {"step": 4, "tool": "get_market_price", "thought": "Wheat price ₹2380/q, above MSP, signal=sell_now."}
+  ]
+}
+```
+
+---
+
+## 🏆 Hackathon Track
+
+**Microsoft Agents League 2026 · Reasoning Agents**
+
+Target awards:
+- 🥇 Best Reasoning Agent
+- 🌍 Hack for Good
+- 🎓 Student Award
+- 🏅 Best Overall Agent
+
+---
+
+## 👨‍💻 Built By
+
+**Devang Dhaka** — Solo developer
+
+*Built in 7 days for the Microsoft Agents League Hackathon 2026*
+
+---
+
+## 📄 License
+
+MIT License — see [LICENSE](LICENSE)
